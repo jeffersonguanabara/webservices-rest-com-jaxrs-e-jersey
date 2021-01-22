@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.thoughtworks.xstream.XStream;
+
 import br.com.alura.loja.modelo.Projeto;
 
 public class ProjetoDAO {
@@ -12,8 +14,8 @@ public class ProjetoDAO {
 	private static AtomicLong contador = new AtomicLong(1);
 	
 	static {
-		banco.put(1l, new Projeto(1l, "Minha loja", 2014));
-		banco.put(2l, new Projeto(2l, "Minha loja", 2012));
+		banco.put(1l,  new Projeto(1l, "Minha loja", 2014));
+		banco.put(2l, new Projeto(2l, "Alura", 2012));
 	}
 	
 	public void adiciona(Projeto projeto) {
@@ -30,4 +32,7 @@ public class ProjetoDAO {
 		return banco.remove(id);
 	}
 	
+	public String toXML() {
+		return new XStream().toXML(this);
+	}
 }

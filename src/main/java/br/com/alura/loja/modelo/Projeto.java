@@ -9,7 +9,7 @@ public class Projeto {
 	private int anoDeIninio;
 	
 	public Projeto() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public Projeto(long id, String nome, int anoDeIninio) {
