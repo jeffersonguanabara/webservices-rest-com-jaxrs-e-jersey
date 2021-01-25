@@ -21,12 +21,13 @@ import junit.framework.Assert;
 public class CarrinhoTest {
 	
 	private HttpServer server;
+	private Client client;
 	private WebTarget target;
 	
 	@Before
 	public void iniciaServidor() {
 		server = Servidor.startaServidor();
-		Client client = ClientBuilder.newClient();
+		client = ClientBuilder.newClient();
 		target = client.target("http://localhost:8080");
 	}
 	
@@ -46,13 +47,17 @@ public class CarrinhoTest {
 	@Test
 	public void testaQueAdicionaUmCarrinho() {
 		Carrinho carrinho = new Carrinho();
-		carrinho.adiciona(new Produto(314L, "Tablet", 999, 1));
+		carrinho.adiciona(new Produto(314L, "Microfone", 999, 1));
 		carrinho.setRua("Rua Vergueiro");
 		carrinho.setCidade("São Paulo");
 		String xml = carrinho.toXML();
 		
 		Entity<String> entity = Entity.entity(xml, MediaType.APPLICATION_XML);
 		Response response = target.path("/carrinhos").request().post(entity);
-		Assert.assertEquals("<status>sucesso</status>", response.readEntity(String.class));
+		Assert.assertEquals(201, response.getStatus());
+		
+		String location = response.getHeaderString("Location");
+		String conteudo = client.target(location).request().get(String.class);
+		Assert.assertTrue(conteudo.contains("Microfone"));
 	}
 }
