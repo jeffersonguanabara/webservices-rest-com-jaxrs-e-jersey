@@ -12,11 +12,11 @@ import br.com.alura.loja.modelo.Produto;
 @Path("/produtos")
 public class ProdutoResource {
 
-	@Path("{id}")
-	@GET
-	@Produces(MediaType.APPLICATION_XML)
-	public String buscarProdudoPeloId(@PathParam(value = "id") long id) {
-		Produto produto = new ProdutoDAO().buscar(id);
-		return produto.toXML();
-	}
+//	@Path("{id}")
+//	@GET
+//	@Produces(MediaType.APPLICATION_XML)
+//	public String buscarProdudoPeloId(@PathParam(value = "id") long id) {
+//		Produto produto = new ProdutoDAO().buscar(id);
+//		return produto.toXML();
+//	}
 }
